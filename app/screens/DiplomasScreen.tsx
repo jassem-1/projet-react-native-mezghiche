@@ -1,20 +1,17 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const diplomas = [
-  { id: "1", title: "Baccalaureate" },
-  { id: "2", title: "Preparatory Classes" },
-  { id: "3", title: "Engineering Degree" },
-  { id: "4", title: "Master's Degree" },
+type DiplomaIcon = "school" | "calculate" | "engineering" | "science";
+
+const diplomas: { id: string; title: string; icon: DiplomaIcon }[] = [
+  { id: "1", title: "Baccalaureate", icon: "school" },
+  { id: "2", title: "Preparatory Classes", icon: "calculate" },
+  { id: "3", title: "Engineering Degree", icon: "engineering" },
+  { id: "4", title: "Master's Degree", icon: "science" },
 ];
 
-import { NavigationProp } from "@react-navigation/native";
-
-type Props = {
-  navigation: NavigationProp<any>;
-};
-
-export default function DiplomasScreen({ navigation }: Props) {
+export default function DiplomasScreen({ navigation }: any) {
   return (
     <FlatList
       data={diplomas}
@@ -27,12 +24,20 @@ export default function DiplomasScreen({ navigation }: Props) {
         >
           <View
             style={{
+              flexDirection: "row",
+              alignItems: "center",
               padding: 16,
               borderBottomWidth: 1,
               borderBottomColor: "#ccc",
             }}
           >
-            <Text>{item.title}</Text>
+            <MaterialIcons
+              name={item.icon}
+              size={24}
+              color="black"
+              style={{ marginRight: 16 }}
+            />
+            <Text style={{ fontSize: 16 }}>{item.title}</Text>
           </View>
         </TouchableOpacity>
       )}
