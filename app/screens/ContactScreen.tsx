@@ -1,37 +1,46 @@
 import React, { useState } from "react";
-import { Button, TextInput, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function ContactScreen() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const handleSend = () => {
+    if (!email || !message) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    alert("Message Sent!");
+    setEmail("");
+    setMessage("");
+  };
+
   return (
-    <View style={{ flex: 1, padding: 16 }}>
+    <View className="flex-1 bg-gray-100 p-6">
+      <Text className="text-2xl font-bold text-gray-800 mb-6">Contact me</Text>
       <TextInput
         placeholder="Your Email"
-        style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
-          padding: 8,
-          marginBottom: 16,
-        }}
+        className="bg-white rounded-lg border border-gray-300 p-4 mb-4 shadow-sm text-base text-gray-700"
         value={email}
         onChangeText={setEmail}
+        keyboardType="email-address"
       />
       <TextInput
         placeholder="Your Message"
-        style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
-          padding: 8,
-          marginBottom: 16,
-          height: 100,
-        }}
+        className="bg-white rounded-lg border border-gray-300 p-4 mb-6 shadow-sm text-base text-gray-700"
         value={message}
         onChangeText={setMessage}
         multiline
+        numberOfLines={6}
       />
-      <Button title="Send" onPress={() => alert("Message Sent!")} />
+      <TouchableOpacity
+        onPress={handleSend}
+        className="bg-blue-500 rounded-lg py-2 shadow-md"
+      >
+        <Text className="text-center text-white font-semibold text-lg">
+          Send Message
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
